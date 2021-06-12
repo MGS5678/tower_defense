@@ -26,7 +26,6 @@ Boucle du jeu qui permet de lancer les fonctions du jeu en fonction de l'endroit
 """
 while launch:
     if game == 0:
-        print("on lance une fonction dans un autre fichier (pratique car on a rien besoin de passer en argument à part la fenêtre")
         retour = menu_principal.main(screen) # on lance le menu et on récupère la valeur de retour ce qui permet de faire passer des infos ici
         if retour == "close":
             launch = False
