@@ -6,6 +6,7 @@ Initialisation de pygame
 """
 pygame.display.init()
 pygame.init()
+pygame.font.init()
 
 screen = pygame.display.set_mode((1300, 700)) # création de la fenêtre*
 

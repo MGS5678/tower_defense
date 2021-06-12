@@ -9,6 +9,8 @@ lvl:
     map: [[0, 0, 0], [0, 0, 0], [0, 0, 0]]
     stars: 0
     high_score: 0
+    waves: 1
+    lives: 1
     y: 0
   lvl2:
     number: 2
@@ -16,6 +18,8 @@ lvl:
     map: [[0, 0, 0], [0, 0, 0], [0, 0, 0]]
     stars: 0
     high_score: 0
+    waves: 1
+    lives: 1
     y: 1
   lvl3:
     number: 3
@@ -23,6 +27,8 @@ lvl:
     map: [[0, 0, 0], [0, 0, 0], [0, 0, 0]]
     stars: 0
     high_score: 0
+    waves: 1
+    lives: 1
     y: 0
   lvl4:
     number: 3
@@ -30,6 +36,8 @@ lvl:
     map: [[0, 0, 0], [0, 0, 0], [0, 0, 0]]
     stars: 0
     high_score: 0
+    waves: 1
+    lives: 1
     y: 2
   lvl5:
     number: 3
@@ -37,6 +45,8 @@ lvl:
     map: [[0, 0, 0], [0, 0, 0], [0, 0, 0]]
     stars: 0
     high_score: 0
+    waves: 1
+    lives: 1
     y: 1
   lvl6:
     number: 3
@@ -44,6 +54,8 @@ lvl:
     map: [[0, 0, 0], [0, 0, 0], [0, 0, 0]]
     stars: 0
     high_score: 0
+    waves: 18
+    lives: 8
     y: 2
   lvl7:
     number: 3
@@ -51,6 +63,8 @@ lvl:
     map: [[0, 0, 0], [0, 0, 0], [0, 0, 0]]
     stars: 0
     high_score: 0
+    waves: 1
+    lives: 1
     y: 0
   lvl8:
     number: 3
@@ -58,6 +72,8 @@ lvl:
     map: [[0, 0, 0], [0, 0, 0], [0, 0, 0]]
     stars: 0
     high_score: 0
+    waves: 1
+    lives: 1
     y: 0
   lvl9:
     number: 3
@@ -65,6 +81,8 @@ lvl:
     map: [[0, 0, 0], [0, 0, 0], [0, 0, 0]]
     stars: 0
     high_score: 0
+    waves: 1
+    lives: 1
     y: 2
   lvl10:
     number: 3
@@ -72,4 +90,49 @@ lvl:
     map: [[0, 0, 0], [0, 0, 0], [0, 0, 0]]
     stars: 0
     high_score: 0
+    waves: plein
+    lives: 1
+    y: 1
+  lvl11:
+    number: 3
+    name: "Mars Contre Attack Attack"
+    map: [[0, 0, 0], [0, 0, 0], [0, 0, 0]]
+    stars: 0
+    high_score: 0
+    waves: 1
+    lives: 1
+    y: 0
+  lvl12:
+    number: 3
+    name: "Mars Contre Attack Attack"
+    map: [[0, 0, 0], [0, 0, 0], [0, 0, 0]]
+    stars: 0
+    high_score: 0
+    waves: 1
+    lives: 1
+    y: 2
+  lvl13:
+    number: 3
+    name: "Mars Contre Attack Attack"
+    map: [[0, 0, 0], [0, 0, 0], [0, 0, 0]]
+    stars: 0
+    high_score: 0
+    y: 0
+  lvl14:
+    number: 3
+    name: "Mars Contre Attack Attack"
+    map: [[0, 0, 0], [0, 0, 0], [0, 0, 0]]
+    stars: 0
+    high_score: 0
+    waves: 1
+    lives: 1
+    y: 2
+  lvl15:
+    number: 3
+    name: "Mars Contre Attack Attack"
+    map: [[0, 0, 0], [0, 0, 0], [0, 0, 0]]
+    stars: 0
+    high_score: 0
+    waves: 1
+    lives: 1
     y: 1
