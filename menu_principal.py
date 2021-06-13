@@ -8,9 +8,6 @@ def init_data():
     return yaml_content
 
 def lvl_popup(pop, lvl, image, screen):
-    """
-    Fonction qui permet l'affichage du popup d'un niveau
-    """
     myfont = pygame.font.SysFont('Liberation Serif', 20)
     flip = 0
     if pop[1] > 1000:
@@ -63,6 +60,7 @@ def main(screen):
     image_lvl_info = pygame.image.load("images/menu_principal/lvl_info.png")
     image_cadenas_lvl = pygame.image.load("images/menu_principal/cadenas_lvl.png")
     image_actual_lvl = pygame.image.load("images/menu_principal/actual_lvl.png")
+    image_start_button = pygame.image.load("images/menu_principal/start_button.png")
 
     data = init_data()
     launch = True # variable de la boucle du menu
@@ -75,6 +73,7 @@ def main(screen):
     Dès que les images sont chargées on lance le menu avec une boucle while qui se ferme quand on change de menu
     """
     while launch:
+        a = time.clock()
         for event in pygame.event.get():  # tout les évènements
             if event.type == pygame.QUIT:
                 return "close" # fermeture du jeu
@@ -94,6 +93,8 @@ def main(screen):
                             popup["quit"] = False
                     elif popup.get("lvl"):
                         choose_lvl = data.get("lvl").get("lvl" + str(popup.get("lvl")[0]))
+                    elif choose_lvl.get("number") <= data.get("player").get("actual_lvl") and 1190 < x < 1290 and 640 < y < 690:
+                        return "lvl" + str(choose_lvl.get("number"))
 
 
         screen.blit(image_menu, (-back_position, 0)) # normalement le fond ne fait que 300 de haut
@@ -128,6 +129,8 @@ def main(screen):
         #affichage du niveau sélectionné
         pygame.draw.rect(screen, (0, 0, 0), pygame.Rect(0, 500, 1300, 900))
         afficher_map(choose_lvl.get("map"), screen)
+        if choose_lvl.get("number") <= data.get("player").get("actual_lvl"):
+            screen.blit(image_start_button, (1190, 640))
 
 
         popup["lvl"] = []
@@ -143,3 +146,4 @@ def main(screen):
                 if 200+100*y < mouse_pos[1] < 275 + 100*y:
                     popup["lvl"] = [lvl, mouse_pos[0], mouse_pos[1]]
         pygame.display.flip()
+        print(time.clock()-a)

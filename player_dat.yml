@@ -1,5 +1,5 @@
 player:
-  actual_lvl: 2
+  actual_lvl: 3
 
 lvl:
   lvl1:
@@ -37,7 +37,7 @@ lvl:
     lives: 1
     y: 0
   lvl4:
-    number: 3
+    number: 4
     name: "Mars Contre Attack Attack"
     map: [[0, 0, 0], [0, 0, 0], [0, 0, 0]]
     stars: 0
@@ -46,7 +46,7 @@ lvl:
     lives: 1
     y: 2
   lvl5:
-    number: 3
+    number: 5
     name: "Mars Contre Attack Attack"
     map:
       [
@@ -68,16 +68,30 @@ lvl:
     lives: 1
     y: 1
   lvl6:
-    number: 3
+    number: 6
     name: "Mars Contre Attack Attack"
-    map: [[0, 0, 0], [0, 0, 0], [0, 0, 0]]
+    map:
+      [
+      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+      ]
     stars: 0
     high_score: 0
     waves: 18
     lives: 8
     y: 2
   lvl7:
-    number: 3
+    number: 7
     name: "Mars Contre Attack Attack"
     map: [[0, 0, 0], [0, 0, 0], [0, 0, 0]]
     stars: 0
@@ -86,7 +100,7 @@ lvl:
     lives: 1
     y: 0
   lvl8:
-    number: 3
+    number: 8
     name: "Mars Contre Attack Attack"
     map: [[0, 0, 0], [0, 0, 0], [0, 0, 0]]
     stars: 0
@@ -95,7 +109,7 @@ lvl:
     lives: 1
     y: 0
   lvl9:
-    number: 3
+    number: 9
     name: "Mars Contre Attack Attack"
     map: [[0, 0, 0], [0, 0, 0], [0, 0, 0]]
     stars: 0
@@ -104,7 +118,7 @@ lvl:
     lives: 1
     y: 2
   lvl10:
-    number: 3
+    number: 10
     name: "Mars Contre Attack Attack"
     map: [[0, 0, 0], [0, 0, 0], [0, 0, 0]]
     stars: 0
@@ -113,7 +127,7 @@ lvl:
     lives: 1
     y: 1
   lvl11:
-    number: 3
+    number: 11
     name: "Mars Contre Attack Attack"
     map: [[0, 0, 0], [0, 0, 0], [0, 0, 0]]
     stars: 0
@@ -122,7 +136,7 @@ lvl:
     lives: 1
     y: 0
   lvl12:
-    number: 3
+    number: 12
     name: "Mars Contre Attack Attack"
     map: [[0, 0, 0], [0, 0, 0], [0, 0, 0]]
     stars: 0
@@ -131,14 +145,14 @@ lvl:
     lives: 1
     y: 2
   lvl13:
-    number: 3
+    number: 13
     name: "Mars Contre Attack Attack"
     map: [[0, 0, 0], [0, 0, 0], [0, 0, 0]]
     stars: 0
     high_score: 0
     y: 0
   lvl14:
-    number: 3
+    number: 14
     name: "Mars Contre Attack Attack"
     map: [[0, 0, 0], [0, 0, 0], [0, 0, 0]]
     stars: 0
@@ -147,7 +161,7 @@ lvl:
     lives: 1
     y: 2
   lvl15:
-    number: 3
+    number: 15
     name: "Mars Contre Attack Attack"
     map: [[0, 0, 0], [0, 0, 0], [0, 0, 0]]
     stars: 0
