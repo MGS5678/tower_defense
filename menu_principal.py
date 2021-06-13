@@ -16,23 +16,21 @@ def lvl_popup(pop, lvl, image, screen):
         flip = 1
     else:
         screen.blit(image, (pop[1], pop[2] - 150))
-    ligne1 = "Niveau " + str(pop[0]) + ": "  # on est obligé de faire les lignes séparément...
-    ligne2 = lvl.get("name")
-    ligne3 = "Waves: " + str(lvl.get("waves"))
-    ligne4 = "Lives: " + str(lvl.get("lives"))
-    ligne1_surface = myfont.render(ligne1, False, (255, 0, 0))
-    ligne2_surface = myfont.render(ligne2, False, (255, 0, 0))
-    ligne3_surface = myfont.render(ligne3, False, (255, 0, 0))
-    ligne4_surface = myfont.render(ligne4, False, (255, 0, 0))
+    ligne1_surface = myfont.render("Niveau " + str(pop[0]) + ": ", False, (255, 0, 0))
+    ligne2_surface = myfont.render(lvl.get("name"), False, (255, 0, 0))
+    ligne3_surface = myfont.render("Vagues: " + str(lvl.get("waves")), False, (255, 0, 0))
+    ligne4_surface = myfont.render("Vies: " + str(lvl.get("lives")), False, (255, 0, 0))
     screen.blit(ligne1_surface, (pop[1] + 40 - flip*330, pop[2] - 145))
     screen.blit(ligne2_surface, (pop[1] + 40 - flip*330, pop[2] - 115))
     screen.blit(ligne3_surface, (pop[1] + 40 - flip*330, pop[2] - 85))
     screen.blit(ligne4_surface, (pop[1] + 40 - flip*330, pop[2] - 55))
 
 def afficher_map(map, screen):
-    ecart = 30//len(map)
-    taille = 180//len(map)
-    distance = 10-ecart
+    val = len(map) if len(map) > len(map[0]) else len(map[0])
+    ecart = 30//val
+    taille = 180//val
+    distance_y = 500 + (200 - (len(map)*taille) - ecart) // 2
+    distance_x = (200 - (len(map[0])*taille) - ecart) // 2
     for y in range(len(map)):
         for x in range(len(map[0])):
             color = (88, 88, 88)
@@ -42,7 +40,24 @@ def afficher_map(map, screen):
                 color = (0, 168, 243)
             elif map[y][x] == 3:
                 color = (239, 184, 55)
-            pygame.draw.rect(screen, color, pygame.Rect(distance + (taille * x + ecart), 500 + distance + (taille * y + ecart), taille - ecart, taille - ecart))
+            pygame.draw.rect(screen, color, pygame.Rect(distance_x + (taille * x + ecart), distance_y + (taille * y + ecart), taille - ecart, taille - ecart))
+    return distance_x*2 + len(map[0]*taille) + ecart
+
+def afficher_lvl(lvl, screen, image_start_button, data):
+    myfont = pygame.font.SysFont('Liberation Serif', 30)
+    pygame.draw.rect(screen, (0, 0, 0), pygame.Rect(0, 500, 1300, 900))
+    last_x = afficher_map(lvl.get("map"), screen)
+    if lvl.get("number") <= data.get("player").get("actual_lvl"):
+        screen.blit(image_start_button, (1190, 640))
+    lvl_name = myfont.render("Niveau " + str(lvl.get("number")) + ": " + lvl.get("name"), False, (255, 0, 0))
+    waves = myfont.render("Vagues: " + str(lvl.get("waves")), False, (255, 0, 0))
+    lives = myfont.render("Vies: " + str(lvl.get("lives")), False, (255, 0, 0))
+    highscore = myfont.render("Highscore: " + str(lvl.get("high_score")), False, (255, 0, 0))
+    screen.blit(lvl_name, (last_x, 510))
+    screen.blit(waves, (last_x, 550))
+    screen.blit(lives, (last_x, 590))
+    screen.blit(highscore, (1031, 510))
+
 
 def main(screen):
     """
@@ -73,7 +88,6 @@ def main(screen):
     Dès que les images sont chargées on lance le menu avec une boucle while qui se ferme quand on change de menu
     """
     while launch:
-        a = time.clock()
         for event in pygame.event.get():  # tout les évènements
             if event.type == pygame.QUIT:
                 return "close" # fermeture du jeu
@@ -127,11 +141,7 @@ def main(screen):
                 back_position -= 2
 
         #affichage du niveau sélectionné
-        pygame.draw.rect(screen, (0, 0, 0), pygame.Rect(0, 500, 1300, 900))
-        afficher_map(choose_lvl.get("map"), screen)
-        if choose_lvl.get("number") <= data.get("player").get("actual_lvl"):
-            screen.blit(image_start_button, (1190, 640))
-
+        afficher_lvl(choose_lvl, screen, image_start_button, data)
 
         popup["lvl"] = []
         if 50 < mouse_pos[0] < 1250 and 200 < mouse_pos[1] < 500:
@@ -146,4 +156,3 @@ def main(screen):
                 if 200+100*y < mouse_pos[1] < 275 + 100*y:
                     popup["lvl"] = [lvl, mouse_pos[0], mouse_pos[1]]
         pygame.display.flip()
-        print(time.clock()-a)
