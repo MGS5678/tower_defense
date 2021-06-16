@@ -1,67 +1,59 @@
 import pygame
 import yaml
-import time
 
 def init_data():
     yaml_file = open("player_dat.yml", 'r')
     yaml_content = yaml.load(yaml_file, Loader=yaml.FullLoader)
     return yaml_content
 
-def lvl_popup(pop, lvl, image, screen):
-    myfont = pygame.font.SysFont('Liberation Serif', 20)
-    flip = 0
-    if pop[1] > 1000:
-        image = pygame.transform.flip(image, True, False)
-        screen.blit(image, (pop[1]-300, pop[2] - 150))
-        flip = 1
+def lvl_popup(pop, lvl, image, screen, myfont, back_position):
+    flip = -40
+    x = -13-back_position+100*(lvl.get("number"))
+    if pop[1] > 500:
+        image = pygame.transform.flip(image, True, False) #50-back_position+100*i, 100+100*lvl_y
+        screen.blit(image, (x-300, 100+100*lvl.get("y") - 103))
+        flip = 290
     else:
-        screen.blit(image, (pop[1], pop[2] - 150))
+        screen.blit(image, (x, 100+100*lvl.get("y") - 103))
     ligne1_surface = myfont.render("Niveau " + str(pop[0]) + ": ", False, (255, 0, 0))
     ligne2_surface = myfont.render(lvl.get("name"), False, (255, 0, 0))
     ligne3_surface = myfont.render("Vagues: " + str(lvl.get("waves")), False, (255, 0, 0))
     ligne4_surface = myfont.render("Vies: " + str(lvl.get("lives")), False, (255, 0, 0))
-    screen.blit(ligne1_surface, (pop[1] + 40 - flip*330, pop[2] - 145))
-    screen.blit(ligne2_surface, (pop[1] + 40 - flip*330, pop[2] - 115))
-    screen.blit(ligne3_surface, (pop[1] + 40 - flip*330, pop[2] - 85))
-    screen.blit(ligne4_surface, (pop[1] + 40 - flip*330, pop[2] - 55))
+    screen.blit(ligne1_surface, (x - flip, 100*lvl.get("y")))
+    screen.blit(ligne2_surface, (x - flip, 30+100*lvl.get("y")))
+    screen.blit(ligne3_surface, (x - flip, 60+100*lvl.get("y")))
+    screen.blit(ligne4_surface, (x - flip, 90+100*lvl.get("y")))
 
 def afficher_map(map, screen):
     val = len(map) if len(map) > len(map[0]) else len(map[0])
     ecart = 30//val
     taille = 180//val
-    distance_y = 500 + (200 - (len(map)*taille) - ecart) // 2
-    distance_x = (200 - (len(map[0])*taille) - ecart) // 2
+    distance_y = 400 + ecart + (200 - (len(map)*taille) - ecart) // 2
+    distance_x = ecart + (200 - (len(map[0])*taille) - ecart) // 2
+    colors = {0:(88, 88, 88), 1:(255, 0, 0), 2:(0, 168, 243), 3:(239, 184, 55)}
     for y in range(len(map)):
         for x in range(len(map[0])):
-            color = (88, 88, 88)
-            if map[y][x] == 1:
-                color = (255, 0, 0)
-            elif map[y][x] == 2:
-                color = (0, 168, 243)
-            elif map[y][x] == 3:
-                color = (239, 184, 55)
-            pygame.draw.rect(screen, color, pygame.Rect(distance_x + (taille * x + ecart), distance_y + (taille * y + ecart), taille - ecart, taille - ecart))
-    return distance_x*2 + len(map[0]*taille) + ecart
+            pygame.draw.rect(screen, colors.get(map[y][x]), pygame.Rect(distance_x + taille * x, distance_y + taille * y, taille - ecart, taille - ecart))
+    return distance_x*2 + len(map[0]*taille)
 
-def afficher_lvl(lvl, screen, image_start_button, data):
-    myfont = pygame.font.SysFont('Liberation Serif', 30)
-    pygame.draw.rect(screen, (0, 0, 0), pygame.Rect(0, 500, 1300, 900))
+def afficher_lvl(lvl, screen, image_start_button, data, myfont):
+    pygame.draw.rect(screen, (0, 0, 0), pygame.Rect(0, 400, 800, 200))
     last_x = afficher_map(lvl.get("map"), screen)
     if lvl.get("number") <= data.get("player").get("actual_lvl"):
-        screen.blit(image_start_button, (1190, 640))
+        screen.blit(image_start_button, (690, 540))
+
     lvl_name = myfont.render("Niveau " + str(lvl.get("number")) + ": " + lvl.get("name"), False, (255, 0, 0))
     waves = myfont.render("Vagues: " + str(lvl.get("waves")), False, (255, 0, 0))
     lives = myfont.render("Vies: " + str(lvl.get("lives")), False, (255, 0, 0))
     highscore = myfont.render("Highscore: " + str(lvl.get("high_score")), False, (255, 0, 0))
-    screen.blit(lvl_name, (last_x, 510))
-    screen.blit(waves, (last_x, 550))
-    screen.blit(lives, (last_x, 590))
-    screen.blit(highscore, (1031, 510))
-
+    screen.blit(lvl_name, (last_x, 410))
+    screen.blit(waves, (last_x, 450))
+    screen.blit(lives, (last_x, 490))
+    screen.blit(highscore, (540, 410))
 
 def main(screen):
     """
-    Ici on initialise les variables du menu (en mettant pendant ce temps une image de chargement de menu
+    Ici on initialise les variables du menu (en mettant pendant ce temps une image de chargement de menu car init_data() prend beaucoup de temps)
     """
     chargement_menu = pygame.image.load("images/menu_principal/chargement_menu.png") # on place l'image de chargement
     screen.blit(chargement_menu, (0, 0))
@@ -82,7 +74,9 @@ def main(screen):
     popup = {"quit":False, "lvl":[]} # liste des choses supplémentaires à afficher (popup ou autres petits menu)
     back_position = 0 # position du fond qui permet de faire défiler les niveaux
     mouse_pos = [0, 0] # permet de stocker la dernière position de la souris quand elle a bougée
-    choose_lvl = data.get("lvl").get("lvl" + str(data.get("player").get("actual_lvl")))
+    choose_lvl = [data.get("lvl").get("lvl" + str(data.get("player").get("actual_lvl"))), 0]
+    myfont = pygame.font.SysFont('Liberation Serif', 20)
+    clock = pygame.time.Clock()
 
     """
     Dès que les images sont chargées on lance le menu avec une boucle while qui se ferme quand on change de menu
@@ -101,50 +95,50 @@ def main(screen):
                     x = event.pos[0]
                     y = event.pos[1]
                     if popup.get("quit"):
-                        if 400 < x < 450 and 350 < y < 380:
+                        if 300 < x < 350 and 325 < y < 355:
                             return "close"
-                        elif 850 < x < 900 and 350 < y < 380:
+                        elif 450 < x < 500 and 325 < y < 355:
                             popup["quit"] = False
                     elif popup.get("lvl"):
-                        choose_lvl = data.get("lvl").get("lvl" + str(popup.get("lvl")[0]))
-                    elif choose_lvl.get("number") <= data.get("player").get("actual_lvl") and 1190 < x < 1290 and 640 < y < 690:
-                        return "lvl" + str(choose_lvl.get("number"))
-
+                        choose_lvl[0] = data.get("lvl").get("lvl" + str(popup.get("lvl")[0]))
+                    elif choose_lvl[0].get("number") <= data.get("player").get("actual_lvl") and 690 < x < 790 and 540 < y < 590:
+                        return choose_lvl[0]
 
         screen.blit(image_menu, (-back_position, 0)) # normalement le fond ne fait que 300 de haut
 
         for i in range(len(data.get("lvl"))): # nombre max de niveaux affichés
             lvl_y = data.get("lvl").get("lvl" + str(i+1)).get("y") # on prend le niveau et sa hauteur
-            if i < len(data.get("lvl")) - 1:
-                pygame.draw.line(screen, (255, 0, 255), (50-back_position+100*i + 75//2, 200+100*lvl_y + 75//2), (50-back_position+100*(i+1) + 75//2, 200+100*data.get("lvl").get("lvl" + str(i+2)).get("y") + 75//2), 5)
-            screen.blit(image_lvl_ico, (50-back_position+100*i, 200+100*lvl_y))
+            if i < len(data.get("lvl")) - 1 and -75 < 87-back_position+100*i < 1300:
+                pygame.draw.line(screen, (255, 0, 255), (87-back_position+100*i, 137+100*lvl_y), (87-back_position+100*(i+1), 137+100*data.get("lvl").get("lvl" + str(i+2)).get("y")), 5)
+            screen.blit(image_lvl_ico, (50-back_position+100*i, 100+100*lvl_y))
             if i+1 > data.get("player").get("actual_lvl"):
-                screen.blit(image_cadenas_lvl, (75-back_position+100*i, 225+100*lvl_y))
+                screen.blit(image_cadenas_lvl, (75-back_position+100*i, 125+100*lvl_y))
             elif i+1 == data.get("player").get("actual_lvl"):
-                screen.blit(image_actual_lvl, (70 - back_position + 100 * i, 225 + 100 * lvl_y))
+                screen.blit(image_actual_lvl, (70-back_position+100*i, 125+100*lvl_y))
 
         if popup.get("quit"):
-            screen.blit(image_quit_popup, (300, 200))
-            screen.blit(image_oui_quit_popup, (400, 350))
-            screen.blit(image_non_quit_popup, (850, 350))
+            screen.blit(image_quit_popup, (266, 200))
+            screen.blit(image_oui_quit_popup, (300, 325))
+            screen.blit(image_non_quit_popup, (450, 325))
         elif popup.get("lvl"): #elif car on veut ça seulement si le popup quit n'est pas ouvert
             pop = popup.get("lvl")
             lvl = data.get("lvl").get("lvl" + str(pop[0]))
-            lvl_popup(pop, lvl, image_lvl_info, screen)
-
+            lvl_popup(pop, lvl, image_lvl_info, screen, myfont, back_position)
 
         #on regarde la position de la souris pour les niveaux et le reste
         if not popup.get("quit"):
-            if mouse_pos[0] > 1250 and back_position < 100 * len(data.get("lvl")) - 1200: #on fait bouger les niveaux
-                back_position += 2
-            elif mouse_pos[0] < 50 and back_position > 0:
-                back_position -= 2
+            if mouse_pos[0] > 750 and back_position < 100 * len(data.get("lvl")) - 700: #on fait bouger les niveaux
+                back_position += 3
+            elif mouse_pos[0] < 25 and back_position > 0:
+                back_position -= 3
 
         #affichage du niveau sélectionné
-        afficher_lvl(choose_lvl, screen, image_start_button, data)
+        if choose_lvl[0] != choose_lvl[1]: # ce if permet d'afficher le popup seulement si il change ce qui économise du temps
+            afficher_lvl(choose_lvl[0], screen, image_start_button, data, myfont)
+            choose_lvl[1] = choose_lvl[0]
 
         popup["lvl"] = []
-        if 50 < mouse_pos[0] < 1250 and 200 < mouse_pos[1] < 500:
+        if 50 < mouse_pos[0] < 750 and 100 < mouse_pos[1] < 400:
             compteur_zone = 0
             pos = mouse_pos[0] - 25 + back_position
             while pos > 0:
@@ -153,6 +147,7 @@ def main(screen):
             if compteur_zone%2 == 0:
                 lvl = compteur_zone//2
                 y = data.get("lvl").get("lvl" + str(lvl)).get("y")
-                if 200+100*y < mouse_pos[1] < 275 + 100*y:
+                if 100+100*y < mouse_pos[1] < 175 + 100*y:
                     popup["lvl"] = [lvl, mouse_pos[0], mouse_pos[1]]
-        pygame.display.flip()
+        pygame.display.update()
+        clock.tick(100)
